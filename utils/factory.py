@@ -81,5 +81,8 @@ def get_model(model_name, args):
     elif name == "aper_finetune":
         from models.aper_finetune import Learner
         return Learner(args)
+    elif name == "ldaclip":
+        from models.ldaclip import Learner
+        return Learner(args)
     else:
         assert 0

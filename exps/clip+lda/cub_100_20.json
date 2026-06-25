@@ -7,7 +7,7 @@
     "shuffle": true,
     "init_cls": 100,
     "increment": 20,
-    "model_name": "simplecil_clean",
+    "model_name": "ldaclip",
     "backbone_type": "clip",
     "device": [
         "0"

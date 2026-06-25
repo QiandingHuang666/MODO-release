@@ -421,3 +421,61 @@ class ParametricClassifierLearner(CleanClipBaseLearner):
 
     def _predict_logits(self, transformed_features):
         return self.classifier(transformed_features)
+
+
+class LDAClassifierLearner(CleanClipBaseLearner):
+    """LDA discriminant classifier.
+
+    After LDA transform (via CleanClipBaseLearner's LDA/dol plugin),
+    classify by Mahalanobis distance to class means with pooled
+    within-class covariance.
+
+    The discriminant score for class k:
+        δ_k(x) = xᵀ Σ⁻¹ μ_k - ½ μ_kᵀ Σ⁻¹ μ_k + log π_k
+    where Σ is the pooled within-class covariance in the transformed
+    space and π_k are uniform priors.
+    """
+
+    def _fit_classifier_stage(self):
+        # Transform class means and covariances through LDA
+        if hasattr(self.dol, '_W') and self.dol._W is not None:
+            W = self.dol._W.to(self._device, dtype=self._class_means_torch.dtype)
+        else:
+            W = torch.eye(self._class_means_torch.shape[1],
+                          device=self._device, dtype=self._class_means_torch.dtype)
+
+        self.prototype = self._transform_class_means()  # (C, k) in LDA space
+        C, k = self.prototype.shape
+
+        # Pooled within-class covariance in LDA-transformed space
+        S_W_pooled = torch.zeros(k, k, device=self._device,
+                                 dtype=self.prototype.dtype)
+        for class_idx in range(self._total_classes):
+            cov_x = self._class_covs_torch[class_idx].to(
+                device=self._device, dtype=self.prototype.dtype)
+            cov_z = W.t().mm(cov_x).mm(W)
+            S_W_pooled += cov_z
+        S_W_pooled = S_W_pooled / C
+
+        # Regularized precision
+        eps = 1e-4
+        S_reg = S_W_pooled + eps * torch.eye(k, device=self._device)
+        self._lda_precision = torch.linalg.pinv(S_reg)
+
+        # Uniform prior
+        self._lda_log_prior = torch.full((C,),
+                                         -torch.log(torch.tensor(C, dtype=self.prototype.dtype)),
+                                         device=self._device)
+        self._classifier_ready = True
+
+    def _predict_logits(self, transformed_features):
+        # δ_k(x) = xᵀ Σ⁻¹ μ_k - ½ μ_kᵀ Σ⁻¹ μ_k + log π_k
+        XW = transformed_features.mm(self._lda_precision)  # (N, k)
+        linear = XW.mm(self.prototype.t())  # (N, C)
+
+        # Quadratic term: ½ μ_kᵀ Σ⁻¹ μ_k
+        quad_norm = 0.5 * torch.einsum(
+            'ck,kl,cl->c',
+            self.prototype, self._lda_precision, self.prototype
+        )
+        return linear - quad_norm.unsqueeze(0) + self._lda_log_prior.unsqueeze(0)

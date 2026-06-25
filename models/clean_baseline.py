@@ -30,7 +30,7 @@ class CleanClipBaseLearner(BaseLearner):
 
         self.use_dol = get_attribute(args, "use_dol", False)
         self.use_lda = get_attribute(args, "use_lda", False)
-        self.lda_mode = get_attribute(args, "lda_mode", "full_dim")
+        self.lda_mode = get_attribute(args, "lda_mode", "reduced")
         self.dol_epoch = get_attribute(args, "dol_epoch", self.train_epoch)
         self.dol_lr = get_attribute(args, "dol_lr", self.init_lr)
         self.dol_alpha = get_attribute(args, "dol_alpha", 1.0)

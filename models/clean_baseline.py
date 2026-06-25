@@ -7,6 +7,7 @@ from tqdm import tqdm
 
 from models.base import BaseLearner
 from utils.dol import IdentitySingleDOLPlugin, SingleDOLPlugin
+from utils.lda import SingleLDAPlugin
 from utils.inc_net import SimpleClipNet, SimpleVitNet
 from utils.toolkit import get_attribute, tensor2numpy
 
@@ -28,6 +29,8 @@ class CleanClipBaseLearner(BaseLearner):
         self.train_epoch = get_attribute(args, "train_epoch", get_attribute(args, "tuned_epoch", 10))
 
         self.use_dol = get_attribute(args, "use_dol", False)
+        self.use_lda = get_attribute(args, "use_lda", False)
+        self.lda_mode = get_attribute(args, "lda_mode", "full_dim")
         self.dol_epoch = get_attribute(args, "dol_epoch", self.train_epoch)
         self.dol_lr = get_attribute(args, "dol_lr", self.init_lr)
         self.dol_alpha = get_attribute(args, "dol_alpha", 1.0)
@@ -42,7 +45,13 @@ class CleanClipBaseLearner(BaseLearner):
         self._gda_log_prior = None
 
         feature_dim = self._network.feature_dim
-        if self.use_dol:
+        if self.use_lda:
+            self.dol = SingleLDAPlugin(
+                feature_dim=feature_dim,
+                loss_mode=self.lda_mode,
+                eps=self.dol_eps,
+            )
+        elif self.use_dol:
             self.dol = SingleDOLPlugin(
                 feature_dim=feature_dim,
                 alpha=self.dol_alpha,
@@ -163,8 +172,19 @@ class CleanClipBaseLearner(BaseLearner):
         return torch.stack(text_features, dim=0)
 
     def _run_dol_stage(self):
-        if not self.use_dol:
+        if not self.use_dol and not self.use_lda:
             return
+
+        # LDA: closed-form solve, no gradient descent
+        if self.use_lda:
+            logging.info("LDA: solving closed-form ({})".format(self.lda_mode))
+            self.dol._solve_lda()
+            if self.dol._W is not None:
+                logging.info(
+                    "LDA: W shape = {}".format(self.dol._W.shape)
+                )
+            return
+
         optimizer = optim.Adam(self.dol.parameters_for_optimization(), lr=self.dol_lr)
         scheduler = optim.lr_scheduler.CosineAnnealingLR(
             optimizer, T_max=self.dol_epoch, eta_min=self.min_lr
@@ -186,7 +206,7 @@ class CleanClipBaseLearner(BaseLearner):
         self.dol.eval()
 
     def _transform_features(self, features):
-        return self.dol.transform(features) if self.use_dol else features
+        return self.dol.transform(features) if (self.use_dol or self.use_lda) else features
 
     def _transform_class_means(self):
         return self._transform_features(self._class_means_torch)

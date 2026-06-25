@@ -25,5 +25,5 @@
     "dol_eps": 1e-08,
     "data_root": "/home/hqd/dataset",
     "use_lda": true,
-    "lda_mode": "full_dim"
+    "lda_mode": "reduced"
 }

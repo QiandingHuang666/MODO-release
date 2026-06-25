@@ -1,5 +1,5 @@
 {
-    "prefix": "clean",
+    "prefix": "clip+dol+gda",
     "dataset": "food101",
     "memory_size": 0,
     "memory_per_class": 0,

@@ -1,13 +1,13 @@
 {
-    "prefix": "clip+gda",
-    "dataset": "food101",
+    "prefix": "simplecil",
+    "dataset": "objectnet",
     "memory_size": 0,
     "memory_per_class": 0,
     "fixed_memory": false,
     "shuffle": true,
-    "init_cls": 10,
-    "increment": 10,
-    "model_name": "simplegdaclip",
+    "init_cls": 20,
+    "increment": 20,
+    "model_name": "simplecil_clean",
     "backbone_type": "clip",
     "device": [
         "0"

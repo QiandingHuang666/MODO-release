@@ -1,5 +1,5 @@
 {
-    "prefix": "clean",
+    "prefix": "clip+gda",
     "dataset": "sun",
     "memory_size": 0,
     "memory_per_class": 0,

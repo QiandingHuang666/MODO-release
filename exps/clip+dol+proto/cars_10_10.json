@@ -1,6 +1,6 @@
 {
     "prefix": "clip+dol+proto",
-    "dataset": "cifar224",
+    "dataset": "cars",
     "memory_size": 0,
     "memory_per_class": 0,
     "fixed_memory": false,

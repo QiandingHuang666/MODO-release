@@ -7,7 +7,7 @@
     "shuffle": true,
     "init_cls": 10,
     "increment": 10,
-    "model_name": "simplegdaclip",
+    "model_name": "simplecil_clean",
     "backbone_type": "clip",
     "device": [
         "0"

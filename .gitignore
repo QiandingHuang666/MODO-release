@@ -1,0 +1,30 @@
+# 日志文件
+*.log
+logs/
+exp_log.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.eggs/
+*.egg-info/
+
+# 环境 / IDE
+.venv/
+env/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 数据（不提交数据文件）
+data/
+*.pth
+*.pt
+c.pth
+*.pkl
+
+# 临时文件
+*.tmp
+.DS_Store

@@ -24,5 +24,6 @@
     "dol_lambda_sep": 1.0,
     "dol_eps": 1e-08,
     "use_lda": true,
-    "lda_mode": "reduced"
+    "lda_mode": "reduced",
+    "batch_size": 128
 }

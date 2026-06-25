@@ -23,7 +23,7 @@
     "dol_alpha": 1.0,
     "dol_lambda_sep": 1.0,
     "dol_eps": 1e-08,
-    "data_root": "/home/hqd/dataset",
+    "data_root": "/home/hqd/dataset/mydataset/cil_dataset",
     "use_lda": true,
     "lda_mode": "reduced",
     "batch_size": 128

@@ -10,8 +10,8 @@ class iData(object):
 
 def get_dataset_root(data_root):
     if data_root is None:
-        data_root = "/home/hqd/dataset"
-    return os.path.join(data_root, "newdata")
+        data_root = "/home/hqd/dataset/mydataset/cil_dataset"
+    return os.path.join(data_root)
 
 
 class iCIFAR10(iData):

@@ -34,7 +34,7 @@ def get_convnet(args, pretrained=False):
         import open_clip
         if backbone_name == 'clip':
             model, _, preprocess = open_clip.create_model_and_transforms('ViT-B-16', pretrained=None)
-            _load_local_safetensors(model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+            _load_local_safetensors(model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
             tokenizer = open_clip.get_tokenizer('ViT-B-16')
             model.out_dim = 512
             return model, preprocess, tokenizer
@@ -559,7 +559,7 @@ class CodaPromptVitNet(nn.Module):
         self.args = args
         import open_clip
         basic_model, _, preprocess = open_clip.create_model_and_transforms('ViT-B-16', pretrained=None)
-        _load_local_safetensors(model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+        _load_local_safetensors(model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
         basic_model.load_state_dict(torch.load('./c.pth'))
         state_dict = basic_model.state_dict()
         vision_width = state_dict["visual.conv1.weight"].shape[0]
@@ -631,7 +631,7 @@ class PromptVitNet(nn.Module):
         super().__init__()
         import open_clip
         basic_model, _, preprocess = open_clip.create_model_and_transforms('ViT-B-16', pretrained=None)
-        _load_local_safetensors(model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+        _load_local_safetensors(model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
 
       #  basic_model.load_state_dict(torch.load('./c.pth'))
         state_dict = basic_model.state_dict()
@@ -692,7 +692,7 @@ class DualpromptVitNet(nn.Module):
         super().__init__()
         import open_clip
         basic_model, _, preprocess = open_clip.create_model_and_transforms('ViT-B-16', pretrained=None)
-        _load_local_safetensors(model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+        _load_local_safetensors(model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
 
         basic_model.load_state_dict(torch.load('./c.pth'))
         state_dict = basic_model.state_dict()
@@ -751,7 +751,7 @@ class DualpromptVitNet(nn.Module):
 def getbackbone():
     import open_clip
     basic_model, _, preprocess = open_clip.create_model_and_transforms('ViT-B-16', pretrained=None)
-    _load_local_safetensors(model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+    _load_local_safetensors(model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
     basic_model.load_state_dict(torch.load('./c.pth'))
     state_dict = basic_model.state_dict()
     vision_width = state_dict["visual.conv1.weight"].shape[0]
@@ -1672,7 +1672,7 @@ class EaseNet(nn.Module):
         self._device = args["device"][0]
         import open_clip
         basic_model, _, _ = open_clip.create_model_and_transforms("ViT-B-16", pretrained=None)
-        _load_local_safetensors(basic_model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+        _load_local_safetensors(basic_model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
         basic_model.load_state_dict(torch.load("./c.pth", map_location="cpu"))
         sd = basic_model.state_dict()
 
@@ -1813,7 +1813,7 @@ class TUNANet(nn.Module):
 
         import open_clip
         basic_model, _, _ = open_clip.create_model_and_transforms("ViT-B-16", pretrained=None)
-        _load_local_safetensors(basic_model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+        _load_local_safetensors(basic_model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
         basic_model.load_state_dict(torch.load(".p/c.pth", map_location="cpu"))
         sd = basic_model.state_dict()
 
@@ -1944,7 +1944,7 @@ class AdapterVitNet(BaseNet):
         self._device = args["device"][0]
         import open_clip
         basic_model, _, _ = open_clip.create_model_and_transforms("ViT-B-16", pretrained=None)
-        _load_local_safetensors(basic_model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+        _load_local_safetensors(basic_model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
 
         ckpt_path = args.get("clip_ckpt_path", "./c.pth")
         basic_model.load_state_dict(torch.load(ckpt_path, map_location="cpu"), strict=True)
@@ -2065,7 +2065,7 @@ class SSFVitNet(BaseNet):
 
         import open_clip
         basic_model, _, _ = open_clip.create_model_and_transforms("ViT-B-16", pretrained=None)
-        _load_local_safetensors(basic_model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+        _load_local_safetensors(basic_model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
 
         ckpt_path = args.get("clip_ckpt_path", "./c.pth")
         basic_model.load_state_dict(torch.load(ckpt_path, map_location="cpu"), strict=True)
@@ -2157,7 +2157,7 @@ class VPTVitNet(BaseNet):
         self._device = args["device"][0]
         import open_clip
         basic_model, _, _ = open_clip.create_model_and_transforms("ViT-B-16", pretrained=None)
-        _load_local_safetensors(basic_model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+        _load_local_safetensors(basic_model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
 
         ckpt_path = args.get("clip_ckpt_path", "./c.pth")
         basic_model.load_state_dict(torch.load(ckpt_path, map_location="cpu"), strict=True)
@@ -2326,7 +2326,7 @@ def get_vitbackbone(args, pretrained=False):
     _device = args["device"][0]
     import open_clip
     basic_model, _, _ = open_clip.create_model_and_transforms("ViT-B-16", pretrained=None)
-    _load_local_safetensors(basic_model, "/home/qiandingh/Master/CIL/Reproduction/BOFA/cache_dir/models--timm--vit_base_patch16_clip_224.laion400m_e32/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
+    _load_local_safetensors(basic_model, "/home/hqd/.cache/clip/snapshots/f07dd91aded299f886ab2e484b7fb84de65fc46d/open_clip_model.safetensors")
 
     ckpt_path = args.get("clip_ckpt_path", "./c.pth")
     basic_model.load_state_dict(torch.load(ckpt_path, map_location="cpu"), strict=True)

@@ -62,8 +62,8 @@ class iCIFAR100(iData):
 
     def download_data(self, data_root):
         data_path = os.path.join(get_dataset_root(data_root), "cifar100")
-        train_dataset = datasets.cifar.CIFAR100(data_path, train=True, download=False)
-        test_dataset = datasets.cifar.CIFAR100(data_path, train=False, download=False)
+        train_dataset = datasets.cifar.CIFAR100(data_path, train=True, download=True)
+        test_dataset = datasets.cifar.CIFAR100(data_path, train=False, download=True)
         self.train_data, self.train_targets = train_dataset.data, np.array(
             train_dataset.targets
         )
@@ -116,8 +116,8 @@ class iCIFAR224(iData):
 
     def download_data(self, data_root):
         data_path = os.path.join(get_dataset_root(data_root), "cifar100")
-        train_dataset = datasets.cifar.CIFAR100(data_path, train=True, download=False)
-        test_dataset = datasets.cifar.CIFAR100(data_path, train=False, download=False)
+        train_dataset = datasets.cifar.CIFAR100(data_path, train=True, download=True)
+        test_dataset = datasets.cifar.CIFAR100(data_path, train=False, download=True)
         self.train_data, self.train_targets = train_dataset.data, np.array(
             train_dataset.targets
         )

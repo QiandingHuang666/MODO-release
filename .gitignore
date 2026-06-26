@@ -2,6 +2,7 @@
 *.log
 logs/
 exp_log.md
+data/
 
 # Python
 __pycache__/

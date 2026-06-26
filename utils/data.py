@@ -10,7 +10,7 @@ class iData(object):
 
 def get_dataset_root(data_root):
     if data_root is None:
-        data_root = "/tmp/hqd/cil_dataset"
+        data_root = "./data"
     return os.path.join(data_root)
 
 

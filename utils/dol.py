@@ -7,15 +7,13 @@ class AffineDOL(nn.Module):
         super().__init__()
         self.feature_dim = feature_dim
         self.weight = nn.Parameter(torch.eye(feature_dim))
-        self.bias = nn.Parameter(torch.zeros(feature_dim))
 
     def reset_parameters(self):
         with torch.no_grad():
             self.weight.copy_(torch.eye(self.feature_dim, device=self.weight.device, dtype=self.weight.dtype))
-            self.bias.zero_()
 
     def forward(self, x):
-        return torch.matmul(x, self.weight.t()) + self.bias
+        return torch.matmul(x, self.weight.t())
 
 
 class SingleDOLPlugin(nn.Module):

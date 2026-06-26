@@ -23,6 +23,6 @@
     "dol_alpha": 1.0,
     "dol_lambda_sep": 1.0,
     "dol_eps": 1e-08,
-    "data_root": "/tmp/hqd/cil_dataset",
+    "data_root": "./data",
     "batch_size": 128
 }

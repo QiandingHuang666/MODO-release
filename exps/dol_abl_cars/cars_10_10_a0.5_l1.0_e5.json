@@ -1,0 +1,27 @@
+{
+    "prefix": "dol_abl_cars_a0.5_l1.0_e5",
+    "dataset": "cars",
+    "memory_size": 0,
+    "memory_per_class": 0,
+    "fixed_memory": false,
+    "shuffle": true,
+    "init_cls": 10,
+    "increment": 10,
+    "model_name": "simplegdaclip",
+    "backbone_type": "clip",
+    "device": [
+        "0"
+    ],
+    "seed": [
+        1993
+    ],
+    "total_class_num": 100,
+    "use_dol": true,
+    "train_epoch": 10,
+    "dol_epoch": 5,
+    "dol_lr": 0.001,
+    "dol_alpha": 0.5,
+    "dol_lambda_sep": 1.0,
+    "dol_eps": 1e-08,
+    "batch_size": 128
+}

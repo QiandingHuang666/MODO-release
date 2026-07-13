@@ -84,5 +84,8 @@ def get_model(model_name, args):
     elif name == "ldaclip":
         from models.ldaclip import Learner
         return Learner(args)
+    elif name == "kldaclip":
+        from models.kldaclip import Learner
+        return Learner(args)
     else:
         assert 0

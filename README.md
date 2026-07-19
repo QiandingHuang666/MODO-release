@@ -1,15 +1,5 @@
 # MODO: Moment-Optimized Distribution Learning for Pre-Trained Model-Based Class-Incremental Learning
 
-## 🎉 Introduction
-
-MODO is a training-free, closed-form approach to class-incremental learning with pre-trained vision-language models. It combines:
-
-1. **Distribution-Oriented Learning (DOL)**: A lightweight linear transport layer that optimizes class-conditional distribution geometry (mean separation relative to variance along inter-class directions) without modifying the frozen backbone.
-2. **Gaussian Discriminant Analysis (GDA)**: A closed-form shared-covariance classifier built from the transported moments, requiring no additional classifier training.
-
-## 📰 What's New
-- Initial release of MODO.
-
 ## ☄️ How to Use
 
 ### 🕹️ Clone
@@ -62,17 +52,6 @@ python main.py --config=./exps/clip+dol+gda/cifar224_10_10.json
 Available configs (18 datasets × 2 splits):
 - `exps/simplecil/` — SimpleCIL baseline (text prototype + cosine similarity)
 - `exps/clip+dol+gda/` — MODO (DOL transport + Gaussian discriminant analysis)
-
-### ⚙️ Key Hyperparameters
-
-- **model_name**: `simplegdaclip` for MODO
-- **init_cls**: Number of classes in the initial task
-- **increment**: Number of classes per incremental task
-- **backbone_type**: `clip` (CLIP ViT-B/16)
-- **seed**: Random seed for class order shuffling (default: 1993)
-- **use_dol**: Enable DOL transport layer (default: True)
-- **dol_epoch**: DOL optimization epochs (default: 10)
-- **dol_alpha**: Separation ratio sharpness (default: 1.0)
 
 ### 🔎 Datasets
 

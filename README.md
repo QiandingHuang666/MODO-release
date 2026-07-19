@@ -7,8 +7,6 @@ MODO is a training-free, closed-form approach to class-incremental learning with
 1. **Distribution-Oriented Learning (DOL)**: A lightweight linear transport layer that optimizes class-conditional distribution geometry (mean separation relative to variance along inter-class directions) without modifying the frozen backbone.
 2. **Gaussian Discriminant Analysis (GDA)**: A closed-form shared-covariance classifier built from the transported moments, requiring no additional classifier training.
 
-MODO achieves state-of-the-art performance across 9 benchmarks with minimal computational overhead.
-
 ## 📰 What's New
 - Initial release of MODO.
 
